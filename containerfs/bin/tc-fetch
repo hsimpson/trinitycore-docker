@@ -9,7 +9,7 @@ set -x
 # return the first one (latest).
 LATEST_RELEASE_TAG=$( \
   curl --silent "https://api.github.com/repos/TrinityCore/TrinityCore/releases" \
-    | jq -r '[.[].tag_name | select(test("TDB335"))] | first' \
+    | jq -r '[.[].tag_name | select(test("TDB920"))] | first' \
 )
 
 # Cloning via --filter=tree:0 results in significantly less disk space used, and
@@ -29,7 +29,7 @@ LATEST_RELEASE_TAG=$( \
   git clone \
     --filter=tree:0 \
     -b $LATEST_RELEASE_TAG \
-    git://github.com/TrinityCore/TrinityCore.git \
+    https://github.com/TrinityCore/TrinityCore.git \
     /hostfs/tc-server/source
   exit 0
 }
