@@ -39,12 +39,12 @@ services:
     ports:
       - 8085:8085
 
-  trinitycore-authserver:
+  trinitycore-bnetserver:
     image: tc-builder
     command: >
       /bin/sh -c 'wait-port trinitycore-db:3306 &&
         wait-port trinitycore-worldserver:8085 &&
-        /hostfs/tc-server/dist/bin/authserver'
+        /hostfs/tc-server/dist/bin/bnetserver'
     working_dir: /hostfs/tc-wd
     tty: true # Prevent prompt from spamming stdout
     depends_on:

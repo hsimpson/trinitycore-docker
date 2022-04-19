@@ -27,7 +27,7 @@ RUN apt-get update \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100 \
   && rm -rf /var/lib/apt/lists/*
 
-# Used to help worldserver and authserver wait for the database to be ready
+# Used to help worldserver and bnetserver wait for the database to be ready
 RUN npm install -g wait-port
 
 # Reasonable defaults
