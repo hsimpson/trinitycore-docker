@@ -1,3 +1,4 @@
 GRANT ALL PRIVILEGES ON world . * TO 'trinity'@'%' IDENTIFIED BY 'trinity' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON characters . * TO 'trinity'@'%' IDENTIFIED BY 'trinity' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON auth . * TO 'trinity'@'%' IDENTIFIED BY 'trinity' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON hotfixes . * TO 'trinity'@'%' IDENTIFIED BY 'trinity' WITH GRANT OPTION;
