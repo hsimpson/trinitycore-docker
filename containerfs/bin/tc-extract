@@ -4,7 +4,7 @@ set -euo pipefail
 set -x
 
 function cleanup() {
-  DIRS=(dbc maps mmaps vmaps Buildings)
+  DIRS=(dbc gt maps cameras mmaps vmaps Buildings)
 
   # kill existings directories if they exist
   for d in ${DIRS[@]}
@@ -43,6 +43,6 @@ mkdir mmaps
 /hostfs/tc-server/dist/bin/mmaps_generator
 
 # Copy to server location
-cp -r dbc maps mmaps vmaps /hostfs/tc-wd/
+cp -r dbc gt maps cameras mmaps vmaps /hostfs/tc-wd/
 
 cleanup
