@@ -133,8 +133,8 @@ Useful Worldserver Commands
 Create a a GM user:
 
 ```sh
-account create <user> <pass>
-account set gmlevel <user> 3 -1 # give user GM power on all realms
+bnetaccount create <user> <pass>
+account set gmlevel 1#1 3 -1 # give user GM power on all realms
 ```
 
 Connecting to Your Server with a Client

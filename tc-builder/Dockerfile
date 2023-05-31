@@ -12,16 +12,14 @@ RUN apt-get update \
   make \
   gcc \
   g++ \
-  libmariadb-dev-compat \
   libmariadb-dev \
   libssl-dev \
   libbz2-dev \
   libreadline-dev \
   libncurses-dev \
   libboost-all-dev \
-  jq \
   mariadb-server \
-  p7zip-full \
+  p7zip \
   default-libmysqlclient-dev \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100 \
