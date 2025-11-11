@@ -3,7 +3,7 @@ version: "3.7"
 services:
   # accessible at //trinitycore-db:3306 inside the swarm
   trinitycore-db:
-    image: mariadb:10.5
+    image: mariadb:10.3.9
     restart: always
     volumes:
       # store database outside the container
@@ -16,11 +16,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: security-through-subnets
 
-  # adminer:
-  #   image: adminer
-  #   restart: always
-  #   ports:
-  #     - 8080:8080
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 
   trinitycore-worldserver:
     image: tc-builder
@@ -38,13 +38,15 @@ services:
       - ./containerfs/tc-conf:/hostfs/tc-server/dist/etc
     ports:
       - 8085:8085
+      - 8086:8086
 
-  trinitycore-authserver:
+  trinitycore-bnetserver:
     image: tc-builder
     command: >
       /bin/sh -c 'wait-port trinitycore-db:3306 &&
         wait-port trinitycore-worldserver:8085 &&
-        /hostfs/tc-server/dist/bin/authserver'
+        wait-port trinitycore-worldserver:8086 &&
+        /hostfs/tc-server/dist/bin/bnetserver'
     working_dir: /hostfs/tc-wd
     tty: true # Prevent prompt from spamming stdout
     depends_on:
@@ -54,4 +56,5 @@ services:
       # pass custom config into expected location for trinitycore
       - ./containerfs/tc-conf:/hostfs/tc-server/dist/etc
     ports:
-      - 3724:3724
+      - 1119:1119
+      - 8081:8081

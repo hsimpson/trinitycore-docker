@@ -1,5 +1,5 @@
 # Using nodejs since it's debian by default and we can script easily.
-FROM node:14-buster
+FROM --platform=linux/amd64 node:16-bullseye
 
 # https://trinitycore.atlassian.net/wiki/spaces/tc/pages/10977309/Linux+Core+Installation
 # Plus jq for scripting
@@ -12,21 +12,20 @@ RUN apt-get update \
   make \
   gcc \
   g++ \
-  libmariadbclient-dev \
+  libmariadb-dev \
   libssl-dev \
   libbz2-dev \
   libreadline-dev \
   libncurses-dev \
   libboost-all-dev \
-  jq \
   mariadb-server \
-  p7zip-full \
+  p7zip \
   default-libmysqlclient-dev \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100 \
   && rm -rf /var/lib/apt/lists/*
 
-# Used to help worldserver and authserver wait for the database to be ready
+# Used to help worldserver and bnetserver wait for the database to be ready
 RUN npm install -g wait-port
 
 # Reasonable defaults

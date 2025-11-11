@@ -5,3 +5,4 @@
 /containerfs/tc-db/mysql
 /containerfs/tc-wd
 /containerfs/tc-conf/*.dist
+**/.DS_Store

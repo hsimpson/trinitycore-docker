@@ -45,11 +45,11 @@ Therefore, although Docker is being used, all config files, the database, source
 
 - `/containerfs/bin`: Each script in this folder is accessible in the action container's PATH. These scripts are how stuff happen. They run in the action container and _NEVER_ on the host machine. They generally operate on `/hostfs` inside on the container.
 - `/containerfs/tc-client`: this path only exists inside the action container if `CLIENT_DIR` is populated
-- `/containerfs/tc-conf`: Where you should edit and store your worldserver/authserver conf files. The trinitycore-worldserver and trinitycore-authserver docker services both read from this directory.
+- `/containerfs/tc-conf`: Where you should edit and store your worldserver/bnetserver conf files. The trinitycore-worldserver and trinitycore-bnetserver docker services both read from this directory.
 - `/containerfs/tc-db/mysql`: Where the MySQL (really mariadb) service stores its database files.
 - `/containerfs/tc-server/source`: The source (git repo) of TrinityCore. You can cd into this directory and pull the latest changes to update your server.
 - `/containerfs/tc-server/dist`: After a successful build, TrinityCore outputs its build artifacts here (`bin` for all the binary executables and `etc` for example configs).
-- `/containerfs/tc-wd`: The "working directory" for the running worldserver, and authserver. The initial SQL database and extracted maps will/must be placed here, and logs from the processes will also exist here.
+- `/containerfs/tc-wd`: The "working directory" for the running worldserver, and bnetserver. The initial SQL database and extracted maps will/must be placed here, and logs from the processes will also exist here.
 
 Initial Setup
 -------------
@@ -77,10 +77,10 @@ CLIENT_DIR=/absolutepath/to/installed/WoW3.3.5a ./action tc-extract
 Configuration
 -------------
 
-Each time your build TrinityCore, worldserver.conf.dist and authserver.conf.dist will be output to `/containerfs/tc-server/dist/etc`. You can compare these files to what will be used when running the services:
+Each time your build TrinityCore, worldserver.conf.dist and bnetserver.conf.dist will be output to `/containerfs/tc-server/dist/etc`. You can compare these files to what will be used when running the services:
 
 ```sh
-diff -u containerfs/tc-server/dist/etc/authserver.conf.dist containerfs/tc-conf/authserver.conf
+diff -u containerfs/tc-server/dist/etc/bnetserver.conf.dist containerfs/tc-conf/bnetserver.conf
 # and
 diff -u containerfs/tc-server/dist/etc/worldserver.conf.dist containerfs/tc-conf/worldserver.conf
 ```
@@ -96,7 +96,7 @@ docker-compose up
 
 On first boot, the database container will start a temporary server to self-initialize. This takes time. After initialization, mysqld/mariadbd will restart and be accessible, allowing the other services to start. Watch the output and check for any errors. Nearly a gigbyte of SQL must be loaded eventually, so give it time.
 
-Once the database is ready TrinityCore worldserver will autopopulate the database with everything it needs, and then startup. Finally, the authserver will boot once the worldserver is ready.
+Once the database is ready TrinityCore worldserver will autopopulate the database with everything it needs, and then startup. Finally, the bnetserver will boot once the worldserver is ready.
 
 You'll know it's all ready when you see output like:
 
@@ -105,7 +105,7 @@ trinitycore-worldserver_1  | World initialized in 0 minutes 56 seconds
 trinitycore-worldserver_1  | Starting up anti-freeze thread (60 seconds max stuck time)...
 trinitycore-worldserver_1  | TrinityCore rev. 0b7b7f10f90e 2021-01-15 08:31:35 +0000 (HEAD branch) (Unix, RelWithDebInfo, Static) (worldserver-daemon) ready...
 ... # and eventually
-trinitycore-authserver_1   | Added realm "Trinity" at 127.0.0.1:8085.
+trinitycore-bnetserver_1   | Added realm "Trinity" at 127.0.0.1:8085.
 ```
 
 _Note: CTRL+C will stop all services. On subsequent runs, you might find daemon mode more useful (`docker-compose up -d`) so you don't need a terminal window open. See the [Docker Compose documentation](https://docs.docker.com/get-started/08_using_compose/) for more details._
@@ -133,8 +133,8 @@ Useful Worldserver Commands
 Create a a GM user:
 
 ```sh
-account create <user> <pass>
-account set gmlevel <user> 3 -1 # give user GM power on all realms
+bnetaccount create <user> <pass>
+account set gmlevel 1#1 3 -1 # give user GM power on all realms
 ```
 
 Connecting to Your Server with a Client

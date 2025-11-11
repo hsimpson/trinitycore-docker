@@ -6,8 +6,9 @@ set -x
 TC_RELEASES_URL="https://github.com/TrinityCore/TrinityCore/releases"
 
 # Extract the DB Version from the source code
-DB_VERSION=$(grep -o -E '(TDB_full[^"]+)' /hostfs/tc-server/source/revision_data.h.in.cmake)
-BUILD_NUM=$(node -p "'"$DB_VERSION"'.match(/(335\.[0-9]+)/)[1]")
+DB_VERSION=$(grep -o -E '(TDB_full_world[^"]+)' /hostfs/tc-server/source/revision_data.h.in.cmake)
+DB_VERSION=${DB_VERSION/_world/""}
+BUILD_NUM=$(node -p "'"$DB_VERSION"'.match(/(920\.[0-9]+)/)[1]")
 
 cd /hostfs/tc-wd/
 
